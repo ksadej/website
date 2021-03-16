@@ -1,4 +1,5 @@
-Backend for existing web site.
+Backend for existing website.
 CRUD application transmitting API for angular project and saving data in MySQL.
-File formats (.jpg, .png)  are  saving in blob - i know that is not a good solution  but for now is for practice - this solution will be changed for saving fils in locall folder and the paths of this files will be store in MySQL.
-Repozitory is still being expanded, finally for spring education will be converted to spring mvc and amazon aws for store the data.
+File formats (.jpg, .png)  are  saved in blob - I know that it is not a good solution but for now it is for practice - in future, this solutionin will be changed in to saving files in local folder and the paths of these files formats will be stored in MySQL.
+Repozitory is still being expanded, ultimately application will be converted in to sping MVC and amazon AWS for the data.
+
