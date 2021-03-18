@@ -13,12 +13,37 @@ public class Portfolio {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
-	private String name;
-	private String path;
+	private String portfolioName;
+	private String type;
+	private String imgName;
+	@Lob
+    @Column(name = "Image")
+    private byte[] image;
 	
 	@OneToMany(mappedBy = "portfolio", targetEntity = Product.class, cascade = CascadeType.ALL)
 	@JsonBackReference
 	private List<Product> product;
+	
+	public Portfolio() {
+	}
+	
+	public Portfolio(String type, String imgName, byte[] image) {
+		super();
+		this.type = type;
+		this.imgName = imgName;
+		this.image = image;
+	}
+
+
+
+	public Portfolio(String portfolioName, String type, String imgName, byte[] image, List<Product> product) {
+		super();
+		this.portfolioName = portfolioName;
+		this.type = type;
+		this.imgName = imgName;
+		this.image = image;
+		this.product = product;
+	}
 
 	public Long getId() {
 		return id;
@@ -36,19 +61,36 @@ public class Portfolio {
 		this.product = product;
 	}
 
-	public String getName() {
-		return name;
+	public String getPortfolioName() {
+		return portfolioName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPortfolioName(String portfolioName) {
+		this.portfolioName = portfolioName;
 	}
 
-	public String getPath() {
-		return path;
+	public String getType() {
+		return type;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setType(String type) {
+		this.type = type;
 	}
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public String getImgName() {
+		return imgName;
+	}
+
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+
 }

@@ -1,21 +1,23 @@
 package pl.msadej.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import pl.msadej.model.Product;
-import pl.msadej.model.product_1;
 import pl.msadej.repository.ProductRepository;
-import pl.msadej.repository.Product_1Repository;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -23,20 +25,7 @@ import pl.msadej.repository.Product_1Repository;
 public class ProductController {
 
 	@Autowired
-	private Product_1Repository product_1Repository;
-	
-	@Autowired
 	private ProductRepository productRepository;
-	
-//	@GetMapping("/products")
-//	public List<product_1> getAllProducts(){
-//		return product_1Repository.findAll();
-//	}
-	
-//	@PostMapping("/products")
-//	public product_1 addProduct(@RequestBody product_1 prd) {
-//		return product_1Repository.save(prd);
-//	}
 	
 	@GetMapping("/products")
 	public List<Product> getAllProduct(){
@@ -51,5 +40,13 @@ public class ProductController {
 	@GetMapping("/products/portfolio/{portfId}")
 	public List<Product> getProductByPortfobioId(@PathVariable("portfId")Long portfId){
 		return productRepository.findByPortfolio_Id(portfId);
+	}
+	
+	@PostMapping("/uploadProduct")
+	public ResponseEntity upload(@RequestParam("file") MultipartFile file) throws IOException {
+		Product prd = new Product(file.getOriginalFilename(), file.getContentType(), file.getBytes());
+		productRepository.save(prd);
+		String message="Działa";
+		return ResponseEntity.status(HttpStatus.OK).body(message);
 	}
 }
